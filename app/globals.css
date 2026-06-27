@@ -2,26 +2,121 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --font-roboto: var(--font-roboto), system-ui, -apple-system, sans-serif;
+    --font-merriweather: var(--font-merriweather), Georgia, serif;
+  }
+
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    background-color: #f8fafc;
+    color: #1e293b;
+    font-family: var(--font-roboto);
+    -webkit-font-smoothing: antialiased;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+/* ========================================
+   Custom Scrollbar
+   ======================================== */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1; /* slate 300 */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8; /* slate 400 */
+}
+
+/* ========================================
+   Prose / Walkthrough Typography Style
+   ======================================== */
+.font-serif {
+  font-family: var(--font-merriweather);
+}
+
+.font-sans {
+  font-family: var(--font-roboto);
+}
+
+.prose p {
+  margin-bottom: 1.25rem;
+  line-height: 1.65;
+  font-size: 13.5px;
+}
+
+.prose p strong {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.prose p em {
+  font-style: italic;
+  color: #1e3a8a; /* deep blue */
+  background: #eff6ff; /* soft blue highlight */
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 0.95em;
+}
+
+.prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.85em;
+  background-color: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+}
+
+.prose h2 {
+  font-family: var(--font-roboto);
+  color: #0f172a;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.prose ul, .prose ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.25rem;
+}
+
+.prose li {
+  margin-bottom: 0.4rem;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* Custom code block styling inside left sidebar */
+kbd {
+  font-family: ui-monospace, monospace;
+}
+
+/* ========================================
+   SVG Connection Flow Dash Animation
+   ======================================== */
+@keyframes flow-dash {
+  to {
+    stroke-dashoffset: -20;
   }
+}
+
+.animate-flow-dash {
+  stroke-dasharray: 6, 6;
+  animation: flow-dash 1.2s linear infinite;
 }
