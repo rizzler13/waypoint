@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Waypoint — Interactive AWS Architecture Learning
+
+Waypoint is an interactive cloud architecture simulator designed to teach AWS infrastructure step-by-step. Instead of reading dry blog posts or inspecting static charts, developers trace simulated request traffic, toggle resources, and inspect configuration parameters (security rules, routing tables, CDN cache policies) in real-time as the topology live-evolves.
+
+## Tech Stack
+- **Framework**: Next.js 14 (App Router)
+- **Canvas & Simulation**: React Flow (`@xyflow/react`)
+- **Styling**: Tailwind CSS
+- **Authentication**: Firebase Auth (Google OAuth & Email/Password) with dynamic local-sim fallback
+- **Hosting**: AWS S3 (Static Website hosting) & AWS CloudFront (CDN)
+
+---
+
+## Features & Technical Implementation
+
+### 1. Evolving Topology State Engine
+The learning curriculum is divided into progressive architectural stages:
+- **IAM**: User permissions, console vs access key delegation.
+- **VPC**: Private/public subnets, route tables, Internet Gateways.
+- **EC2**: Compute instances, security groups, public IP routing.
+- **S3**: Blob assets, public blocks, bucket policies.
+- **CloudFront**: Global CDN distributions, edge caches, dynamic invalidations.
+
+As students complete chapters, the canvas recalculates routes and triggers packet flow animations showing network traffic moving along active connection vectors.
+
+### 2. Node Config & Metadata Inspector
+Selecting any canvas node slides out a real-time configuration inspector window detailing the underlying properties of the AWS resource (e.g. security group rule arrays, bucket access lists, CDN cache rules).
+
+### 3. Serverless Deployment & Pipeline
+Because the entire simulator runs as client-side React Flow nodes, Next.js compiles down to static HTML exports.
+- **AWS Deploy Pipeline**: Includes a custom lightweight Node script (`scripts/deploy-aws.mjs`) utilizing the `@aws-sdk/client-s3` and `@aws-sdk/client-cloudfront` APIs.
+- Uploads assets to S3 and automatically provisions invalidations on CloudFront edge locations, bypassing macOS Python environment configuration conflicts.
+
+---
 
 ## Getting Started
 
-First, run the development server:
-
+### Local Development
 ```bash
+# Install dependencies
+npm install
+
+# Run dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment Settings
+Copy `.env.local.example` to `.env` or `.env.local`:
+```bash
+# Firebase Client config
+NEXT_PUBLIC_FIREBASE_API_KEY=...
+# AWS Deployment config (Local Node build use only)
+AWS_ACCESS_KEY_ID=...
+AWS_S3_BUCKET=...
+```
+*Note: If no Firebase credentials are found, the app automatically switches to secure local demo fallback mode.*
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Deploying to AWS S3 & CloudFront
+To build the static files, sync them to your S3 bucket, and invalidate CloudFront caches:
+```bash
+npm run build
+npm run deploy
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Future Vision & Roadmap
 
-To learn more about Next.js, take a look at the following resources:
+Waypoint is designed as a modular visual sandbox. Our upcoming iterations focus on expanding the platform into a comprehensive cloud design and deployment engine:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [ ] **Multi-Service Catalog**: Expand from core services to advanced AWS utilities (e.g. RDS, Lambda, API Gateway, DynamoDB, ECS Fargate).
+- [ ] **Export to IaC**: Allow developers to design an architecture in the visual simulator and export it directly as fully valid **Terraform** configurations or **AWS CDK** stacks.
+- [ ] **Live Account Sync**: Connect AWS read-only credentials to overlay a developer's real, live AWS account topology on the Waypoint interactive canvas.
+- [ ] **Multi-Player Collaboration**: Collaborative whiteboard rooms where engineering teams can map, simulate, and comment on system architectures together in real-time.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+*Built for developers. Open source.*
