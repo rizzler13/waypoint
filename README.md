@@ -5,6 +5,7 @@
 > 🔗 **[Explore Waypoint Live Simulator](https://d30924xgb9fh2u.cloudfront.net/)**
 
 ---
+A single live-evolving architectural diagram that animates and scales in response to your learning steps :)
 
 Waypoint replaces static charts and dry documentation with an active network canvas. Developers trace request traffic, trigger load distributions, and inspect detailed configuration rules (VPC security group boundaries, routing paths, CDN caching properties) in real-time as the topology dynamically adapts.
 
