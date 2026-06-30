@@ -1,18 +1,17 @@
-# Waypoint — Interactive AWS Architecture Learning
+# Waypoint — Interactive Cloud Infrastructure Learning
 
-> **Waypoint is an interactive cloud architecture simulator designed to teach AWS infrastructure step by step.**
+> **Waypoint is an interactive cloud architecture simulator designed to teach modern cloud infrastructure step-by-step.**
 >
 > 🔗 **[Explore Waypoint Live Simulator](https://d30924xgb9fh2u.cloudfront.net/)**
 
 ---
-A single live-evolving architectural diagram that animates and scales in response to your learning steps :)
 
-Waypoint replaces static charts and dry documentation with an active network canvas. Developers trace request traffic, trigger load distributions, and inspect detailed configuration rules (VPC security group boundaries, routing paths, CDN caching properties) in real-time as the topology dynamically adapts.
+Waypoint replaces static diagrams and dry documentation with an active network canvas. Developers trace request traffic, trigger load distributions, and inspect detailed configuration rules (subnets, routing paths, caching properties, microservice queues, serverless endpoints) in real-time as the topology dynamically adapts.
 
 ## Tech Stack
 - **Framework**: Next.js 14 (App Router)
-- **Canvas Engine**: React Flow 
-- **Styling**: Tailwind CSS
+- **Canvas Engine**: React Flow & Custom HTML5 Canvas Vector Renderers
+- **Styling**: Tailwind CSS & Vanilla CSS
 - **Authentication**: Firebase Auth
 - **Infrastructure**: AWS S3 & AWS CloudFront CDN
 
@@ -20,32 +19,23 @@ Waypoint replaces static charts and dry documentation with an active network can
 
 ## Technical Architecture & Core Systems
 
-### 1. Evolving Topology State Engine
-The sandbox curriculum dynamically modifies network states through successive checkpoints:
-- **IAM**: User permissions, console vs access key delegation.
-- **VPC**: Private/public subnets, routing tables, Internet Gateways.
-- **EC2**: Compute instances, security groups, public IP routing.
-- **S3**: Object assets, public blocks, bucket policies.
-- **CloudFront**: Global CDN distributions, edge caches, dynamic invalidations.
+### 1. Multi-Track Curriculum Engine
+Waypoint organizes cloud education into specialized interactive learning tracks:
+*   **Track A: AWS Cloud Infrastructure**: Guides developers through IAM roles, VPC networks, S3/CloudFront CDNs, RDS failovers, database caches (Redis/DynamoDB), and microservices (ECS Fargate/Lambda/SQS/SNS).
+*   **Track B: Containers & Kubernetes Orchestration**: Explores namespaces/cgroups, layered Docker filesystems, Pod schedulers, ReplicaSets, rolling updates, and Service routing.
+*   **Track C: Cloud Observability**: Teaches logging aggregation, time-series metrics query engines (Prometheus/Grafana), and request span context tracing (OpenTelemetry/Jaeger).
+*   **Track D: Maintainability & Operations**: Focuses on Infrastructure as Code (Terraform), CI/CD canary automation, and incident mitigation runbooks.
 
-Completion of each checkpoint triggers dynamic path-recalculation rules, rendering packet flow simulations along active connection paths in real-time.
+### 2. State-Driven Network Canvas
+The simulator renders custom HTML5 canvas vector icons (cylinders, hexagons, network waves) and dynamically updates active connection paths as learners progress through checkpoints.
 
-### 2. Node Metadata Inspector
-Selecting any canvas element slides out a granular inspector displaying simulated AWS configuration payloads, giving developers direct insight into how AWS resources are structured under the hood.
+### 3. Node Metadata Inspector
+Selecting any canvas element slides out a granular inspector displaying simulated JSON configuration payloads, giving developers direct insight into resource properties (e.g. security group rules, load balancer schemes, database subnet definitions).
 
-### 3. Serverless S3/CloudFront Pipeline
-Waypoint is fully statically exported (output: 'export'). Deployment is handled by a Node script that syncs files to S3 and invalidates CloudFront edge caches automatically. Client-side routing works via a custom CloudFront error response that catches S3 404s and redirects them to /index.html with a 200 — so navigation stays clean without a backend.
-
----
-
-## Future Vision & Roadmap
-
-Waypoint is designed as a modular visual sandbox. Our upcoming iterations focus on expanding the platform into a comprehensive cloud design and deployment engine:
-
-- **Multi-Service Catalog**: Expand from core services to advanced AWS utilities (e.g. RDS, Lambda, API Gateway, DynamoDB, ECS Fargate).
-- **Export to IaC**: Allow developers to design an architecture in the visual simulator and export it directly as fully valid **Terraform** configurations or **AWS CDK** stacks.
-- **Live Account Sync**: Connect AWS read-only credentials to overlay a developer's real, live AWS account topology on the Waypoint interactive canvas.
-- **Multi-Player Collaboration**: Collaborative whiteboard rooms where engineering teams can map, simulate, and comment on system architectures together in real-time.
+### 4. Static Export & Deployment Pipeline
+Waypoint is statically exported (`output: 'export'`) and deployed to an S3/CloudFront CDN. A custom CloudFront error handler routes S3 404s back to `/index.html` fallback where client-side Next.js normalizes routes (such as `/learn` -> `/learn/index.html`), maintaining clean, clean routing without running a web server.
 
 ---
+
 *Built for Learners. Open source with passion ❤️*
+
